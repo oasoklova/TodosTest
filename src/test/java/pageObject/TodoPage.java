@@ -1,5 +1,6 @@
 package pageObject;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -44,9 +45,26 @@ public class TodoPage {
         return this;
     }
 
-    @Step("Статус изменился")
+    @Step("Статус изменился на противоположный")
     public TodoPage checkStatusNotCompleted() {
         $x("//li[@class = \"completed\"]").shouldNotBe(visible);
+        return this;
+    }
+
+    @Step("Удаление задачи")
+    public  TodoPage deleteTask(){
+        $x("//ul[@class = 'todo-list']").hover();
+        $x("//button [@class = 'destroy']").click();
+        return this;
+    }
+    @Step("Проверка видимости текста")
+    public TodoPage checkTaskVisible(){
+      $x("//*[contains(text(),'test')]").shouldBe(visible);
+        return this;
+    }
+    @Step("Проверка отсутствия текста")
+    public TodoPage checkTaskNotVisible() {
+        $x("//*[contains(.,'test')]").shouldBe(Condition.disappear);
         return this;
     }
 }

@@ -42,4 +42,17 @@ public class TodoTest extends BaseTest {
                 .checkStatusNotCompleted();
 
     }
+
+    @Test
+    @DisplayName("Удаление задачи")
+    public void removeTask() {
+        todoPage.openThisPage()
+                .checkOpenThisPage()
+                .createTask()
+                .checkCreatedTask()
+                .checkTaskVisible()
+                .deleteTask()
+                .checkTaskNotVisible();
+
+    }
 }
