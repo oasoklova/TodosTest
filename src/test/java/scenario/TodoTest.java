@@ -14,8 +14,8 @@ public class TodoTest extends BaseTest {
     public void openPage() {
         todoPage.openThisPage()
                 .checkOpenThisPage()
-                .taskInputLine()
-                .checkTaskInputLine();
+                .createTask()
+                .checkCreatedTask();
     }
 
     @Test
@@ -23,21 +23,23 @@ public class TodoTest extends BaseTest {
     public void changeStatus() {
         todoPage.openThisPage()
                 .checkOpenThisPage()
-                .taskInputLine()
-                .checkTaskInputLine()
+                .createTask()
+                .checkCreatedTask()
                 .changeStatusTask()
-                .checkChangeStatusTask();
+                .checkStatusCompleted();
     }
+
     @Test
     @DisplayName("Смена статуса одной задачи дважды")
-public void changeStatusTwice(){
+    public void changeStatusTwice() {
         todoPage.openThisPage()
-            .checkOpenThisPage()
-            .taskInputLine()
-            .checkTaskInputLine()
-            .changeStatusTaskTwice();
+                .checkOpenThisPage()
+                .createTask()
+                .checkCreatedTask()
+                .changeStatusTask()
+                .checkStatusCompleted()
+                .changeStatusTask()
+                .checkStatusNotCompleted();
 
-}
-
-
+    }
 }

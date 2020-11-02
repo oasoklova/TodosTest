@@ -13,6 +13,7 @@ public class TodoPage {
         open(PAGE_URL);
         return this;
     }
+
     @Step("Страница открыта")
     public TodoPage checkOpenThisPage() {
         $x("//input[@placeholder ='What needs to be done?' ]").shouldBe(visible);
@@ -20,37 +21,32 @@ public class TodoPage {
     }
 
     @Step("Создание задачи")
-    public TodoPage taskInputLine() {
+    public TodoPage createTask() {
         $x("//input[@class = 'new-todo']").setValue("test").pressEnter();
         return this;
     }
+
     @Step("Задача создана")
-    public TodoPage checkTaskInputLine(){
+    public TodoPage checkCreatedTask() {
         $x("//ul[@class = 'todo-list']").shouldBe(visible);
         return this;
     }
 
     @Step("Сменить статус")
-    public TodoPage changeStatusTask(){
-
+    public TodoPage changeStatusTask() {
+        $x("//input[@class = \"toggle\"]").click();
         return this;
     }
+
     @Step("Статус изменился")
-    public TodoPage checkChangeStatusTask(){
+    public TodoPage checkStatusCompleted() {
         $x("//li[@class = \"completed\"]").shouldBe(visible);
         return this;
     }
-    @Step("Сменить статус задачи дважды")
-    public TodoPage changeStatusTaskTwice(){
-        $x("//input[@class = \"toggle\"]").click();
-        $x("//input[@class = \"toggle\"]").click();
+
+    @Step("Статус изменился")
+    public TodoPage checkStatusNotCompleted() {
+        $x("//li[@class = \"completed\"]").shouldNotBe(visible);
         return this;
     }
-    public TodoPage checkChangeStatusTaskTwice(){
-
-        return this;
-    }
-
-
-
 }
