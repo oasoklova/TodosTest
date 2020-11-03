@@ -13,8 +13,8 @@ public class TodoTest extends BaseTest {
     @DisplayName("Создание задачи")
     public void openPage() {
         todoPage.openThisPage()
-                .checkOpenThisPage()
-                .createTask()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test")
                 .checkCreatedTask();
     }
 
@@ -22,10 +22,10 @@ public class TodoTest extends BaseTest {
     @DisplayName("Смена статуса задачи")
     public void changeStatus() {
         todoPage.openThisPage()
-                .checkOpenThisPage()
-                .createTask()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test")
                 .checkCreatedTask()
-                .changeStatusTask()
+                .checkTextVisible("test")
                 .checkStatusCompleted();
     }
 
@@ -33,8 +33,8 @@ public class TodoTest extends BaseTest {
     @DisplayName("Смена статуса одной задачи дважды")
     public void changeStatusTwice() {
         todoPage.openThisPage()
-                .checkOpenThisPage()
-                .createTask()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test")
                 .checkCreatedTask()
                 .changeStatusTask()
                 .checkStatusCompleted()
@@ -47,10 +47,10 @@ public class TodoTest extends BaseTest {
     @DisplayName("Удаление задачи")
     public void removeTask() {
         todoPage.openThisPage()
-                .checkOpenThisPage()
-                .createTask()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test")
                 .checkCreatedTask()
-                .checkTaskVisible()
+                .checkTextVisible("test")
                 .deleteTask()
                 .checkTaskNotVisible();
 

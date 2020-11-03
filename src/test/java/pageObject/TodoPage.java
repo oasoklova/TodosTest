@@ -14,22 +14,17 @@ public class TodoPage {
         open(PAGE_URL);
         return this;
     }
-
-    @Step("Страница открыта")
-    public TodoPage checkOpenThisPage() {
-        $x("//input[@placeholder ='What needs to be done?' ]").shouldBe(visible);
-        return this;
-    }
-
-    @Step("Создание задачи")
-    public TodoPage createTask() {
-        $x("//input[@class = 'new-todo']").setValue("test").pressEnter();
+       @Step("Создание задачи")
+    public TodoPage createTask(String text) {
+        String inputLine = "//input[@class = 'new-todo']";
+        $x(inputLine).setValue(text).pressEnter();
         return this;
     }
 
     @Step("Задача создана")
     public TodoPage checkCreatedTask() {
-        $x("//ul[@class = 'todo-list']").shouldBe(visible);
+        String taskList = "//ul[@class = 'todo-list']";
+        $x(taskList).shouldBe(visible);
         return this;
     }
 
@@ -52,16 +47,21 @@ public class TodoPage {
     }
 
     @Step("Удаление задачи")
-    public  TodoPage deleteTask(){
+    public TodoPage deleteTask() {
         $x("//ul[@class = 'todo-list']").hover();
         $x("//button [@class = 'destroy']").click();
         return this;
     }
+
     @Step("Проверка видимости текста")
-    public TodoPage checkTaskVisible(){
-      $x("//*[contains(text(),'test')]").shouldBe(visible);
+    public TodoPage checkTextVisible(String text) {
+        String textSelector = "//*[contains(., '%s')]";
+        String selector = String.format(textSelector, text);
+        $x(selector).shouldBe(visible);
+
         return this;
     }
+
     @Step("Проверка отсутствия текста")
     public TodoPage checkTaskNotVisible() {
         $x("//*[contains(.,'test')]").shouldBe(Condition.disappear);
