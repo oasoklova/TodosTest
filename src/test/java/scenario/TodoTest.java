@@ -60,7 +60,7 @@ public class TodoTest extends BaseTest {
 
     @Test
     @DisplayName("Редактирование задачи")
-    public void taskEditing(){
+    public void taskEditing() {
         todoPage.openThisPage()
                 .checkTextVisible("What needs to be done?")
                 .createTask("test")
@@ -72,7 +72,7 @@ public class TodoTest extends BaseTest {
 
     @Test
     @DisplayName("Показать список всех задач")
-    public void taskFilterAll(){
+    public void taskFilterAll() {
         todoPage.openThisPage()
                 .checkTextVisible("What needs to be done?")
                 .createTask("test_active")
@@ -85,4 +85,85 @@ public class TodoTest extends BaseTest {
                 .checkTextVisible("test_complete");
     }
 
+    @Test
+    @DisplayName("Показать список активных задач")
+    public void taskFilterActive() {
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test_active")
+                .createTask("test_complete")
+                .checkCreatedTask()
+                .changeStatusTask("test_complete")
+                .checkStatusCompleted()
+                .filterActive()
+                .checkTextNotVisible("test_complete");
+    }
+
+    @Test
+    @DisplayName("Показать список выполненных задач")
+    public void taskFilterComplete() {
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test_active")
+                .createTask("test_complete")
+                .checkCreatedTask()
+                .changeStatusTask("test_complete")
+                .checkStatusCompleted()
+                .filterComplete()
+                .checkTextNotVisible("test_active");
+    }
+
+    @Test
+    @DisplayName("Отметить все задачи")
+    public void toggleAll() {
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test_complete")
+                .createTask("test_complete_2")
+                .checkCreatedTask()
+                .checkedAllTask()
+                .filterComplete()
+                .checkTextVisible("test_complete");
+    }
+    @Test
+    @DisplayName("Отметить все задачи")
+    public void toggleAllTwice() {
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test_complete")
+                .createTask("test_complete_2")
+                .checkCreatedTask()
+                .checkedAllTask()
+                .checkedAllTask()
+                .filterComplete()
+                .checkTextNotVisible("test_complete");
+    }
+    @Test
+    @DisplayName("Отметить все задачи с разным статусом")
+    public void toggleTasksWithDifferentStatuses(){
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test_active")
+                .createTask("test_complete")
+                .checkCreatedTask()
+                .changeStatusTask("test_complete")
+                .checkStatusCompleted()
+                .checkedAllTask()
+                .filterComplete()
+                .checkTextVisible("test_active");
+    }
+@Test
+    @DisplayName("Удалить выполненные задачи")
+    public void deleteCompletedTasks(){
+    todoPage.openThisPage()
+            .checkTextVisible("What needs to be done?")
+            .createTask("test_active")
+            .createTask("test_complete")
+            .createTask("test_complete_2")
+            .checkCreatedTask()
+            .changeStatusTask("test_complete")
+            .changeStatusTask("test_complete_2")
+            .deleteCheckedTasks()
+            .checkTextNotVisible("test_complete");
+}
 }

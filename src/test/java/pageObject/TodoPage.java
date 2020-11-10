@@ -2,6 +2,7 @@ package pageObject;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -88,4 +89,24 @@ public class TodoPage {
         return this;
     }
 
+    @Step("Показать список активных задач")
+    public TodoPage filterActive(){
+        $x("//a[@href=\"#/active\"]").click();
+        return this;
+    }
+    @Step("Показать список выполненых задач")
+    public TodoPage filterComplete(){
+        $x("//a[@href='#/completed']").click();
+        return this;
+    }
+    @Step("Выбрать всё")
+    public TodoPage checkedAllTask(){
+        $x("//label[@for='toggle-all']").click();
+        return this;
+    }
+    @Step("Очистить список выполненных задач")
+    public TodoPage deleteCheckedTasks(){
+        $x("//button[@class='clear-completed']").click();
+        return this;
+    }
 }
