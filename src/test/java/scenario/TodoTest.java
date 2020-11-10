@@ -1,6 +1,7 @@
 package scenario;
 
 import config.BaseTest;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pageObject.TodoPage;
@@ -26,6 +27,7 @@ public class TodoTest extends BaseTest {
                 .createTask("test")
                 .checkCreatedTask()
                 .checkTextVisible("test")
+                .changeStatusTask("test")
                 .checkStatusCompleted();
     }
 
@@ -36,9 +38,9 @@ public class TodoTest extends BaseTest {
                 .checkTextVisible("What needs to be done?")
                 .createTask("test")
                 .checkCreatedTask()
-                .changeStatusTask()
+                .changeStatusTask("test")
                 .checkStatusCompleted()
-                .changeStatusTask()
+                .changeStatusTask("test")
                 .checkStatusNotCompleted();
 
     }
@@ -52,7 +54,35 @@ public class TodoTest extends BaseTest {
                 .checkCreatedTask()
                 .checkTextVisible("test")
                 .deleteTask()
-                .checkTaskNotVisible();
+                .checkTextNotVisible("test");
 
     }
+
+    @Test
+    @DisplayName("Редактирование задачи")
+    public void taskEditing(){
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test")
+                .checkCreatedTask()
+                .checkTextVisible("test")
+                .textEditing()
+                .checkTextVisible("test2");
+    }
+
+    @Test
+    @DisplayName("Показать список всех задач")
+    public void taskFilterAll(){
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test_active")
+                .createTask("test_complete")
+                .checkCreatedTask()
+                .changeStatusTask("test_complete")
+                .checkStatusCompleted()
+                .filterAll()
+                .checkTextVisible("test_active")
+                .checkTextVisible("test_complete");
+    }
+
 }
