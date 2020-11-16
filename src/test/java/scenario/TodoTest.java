@@ -1,10 +1,10 @@
 package scenario;
 
 import config.BaseTest;
-import io.qameta.allure.Step;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pageObject.TodoPage;
+import utils.TestDataGenerator;
 
 @DisplayName("Тестирование приложения todos")
 public class TodoTest extends BaseTest {
@@ -177,23 +177,25 @@ public class TodoTest extends BaseTest {
                 .deleteCheckedTasks()
                 .checkTextNotVisible("test_complete");
     }
+
     @Test
-    @DisplayName("Проверка счётчика активных задач")
-    public void countTasks(){
-            todoPage.openThisPage()
-                    .checkTextVisible("What needs to be done?")
-                    .createTask("test_active")
-                    .createTask("test_active_2")
-                    .createTask("test_complete")
-                    .checkCreatedTask("test_active")
-                    .checkCreatedTask("test_active_2")
-                    .checkCreatedTask("test_complete")
-                    .changeStatusTask("test_complete").counterActiveTasks("2");
+    @DisplayName("Проверка счётчика активных задач. Отметить одну задачу")
+    public void checkCounterCheckTask() {
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .createTask("test_active")
+                .createTask("test_active_2")
+                .createTask("test_complete")
+                .checkCreatedTask("test_active")
+                .checkCreatedTask("test_active_2")
+                .checkCreatedTask("test_complete")
+                .changeStatusTask("test_complete").counterActiveTasks("2");
 
     }
+
     @Test
-    @DisplayName("Проверка счётчика активных задач")
-    public void countTasks2(){
+    @DisplayName("Проверка счётчика активных задач.Снять отметку с выполненной задачи")
+    public void uncheckCounterUncheckTask() {
         todoPage.openThisPage()
                 .checkTextVisible("What needs to be done?")
                 .createTask("test_active")
@@ -207,9 +209,10 @@ public class TodoTest extends BaseTest {
                 .counterActiveTasks("3");
 
     }
+
     @Test
-    @DisplayName("Проверка счётчика активных задач")
-    public void countTasks3(){
+    @DisplayName("Проверка счётчика активных задач. Удалить одну задачу")
+    public void checkCounterDeleteTask() {
         todoPage.openThisPage()
                 .checkTextVisible("What needs to be done?")
                 .createTask("test_active")
@@ -222,9 +225,10 @@ public class TodoTest extends BaseTest {
                 .counterActiveTasks("2");
 
     }
+
     @Test
     @DisplayName("Создание задачи из пустой строки")
-    public void taskInputLineNegative(){
+    public void taskInputLineNegative() {
         todoPage.openThisPage()
                 .checkTextVisible("What needs to be done?")
                 .createTask(" ")
@@ -234,9 +238,22 @@ public class TodoTest extends BaseTest {
 
     @Test
     @DisplayName("Создание задачи с длинным названием")
-    public void longNameTaskNegative(){
+    public void longNameTaskNegative() {
+        String taskText = TestDataGenerator.generateText(1000);
         todoPage.openThisPage()
-                .checkTextVisible("What needs to be done?");
+                .checkTextVisible("What needs to be done?")
+                .createTask(taskText)
+                .checkCreatedTask(taskText);
+
+    }
+
+    @Test
+    @DisplayName("Создание 100 задач")
+    public void create100Tasks() {
+        todoPage.openThisPage()
+                .checkTextVisible("What needs to be done?")
+                .creatingALotOfTasks("test", 100);
+
     }
 
 }

@@ -134,4 +134,15 @@ public class TodoPage {
         $x("//ul[@class = 'todo-list']").shouldNotBe(visible);
         return this;
     }
+
+
+
+    @Step ("Я создаю {0} задач")
+    public TodoPage creatingALotOfTasks(String taskText, int count){
+        for (int i = 1; i <= count; i++) {
+            createTask(taskText + "_" + i);
+            checkCreatedTask(taskText + "_" + i);
+        }
+        return this;
+    }
 }
