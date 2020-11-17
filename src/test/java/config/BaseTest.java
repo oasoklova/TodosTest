@@ -17,11 +17,6 @@ public class BaseTest {
         setSelenideConfiguration();
     }
 
-    @AfterAll
-    public static void tearDown() {
-        WebDriverRunner.getWebDriver().close();
-    }
-
     @AfterEach
     public void clean() {
         Selenide.clearBrowserCookies();
