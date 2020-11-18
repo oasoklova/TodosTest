@@ -2,7 +2,6 @@ package pageObject;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Selenide.*;
