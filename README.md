@@ -1,5 +1,7 @@
 ### Автоматизированное тестирование веб-приложения [todos](http://todomvc.com/examples/react/)
 
+[Тест-план](https://github.com/oasoklova/TodosTest/commit/c21fde6f7ac473dd2220ee3aa0b71176b90dc1cc)
+
 Стек: Java, Maven, Selenide, JUnit, Allure
 
 Запуск тестов: mvn test
